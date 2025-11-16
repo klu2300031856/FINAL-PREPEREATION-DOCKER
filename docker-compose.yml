@@ -12,7 +12,7 @@ services:
     networks:
       - springboot-mysql-net
     healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping -h localhost -uroot -proot"]
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -proot --protocol=tcp"]
       interval: 5s
       timeout: 5s
       retries: 10
@@ -24,7 +24,7 @@ services:
       - "2080:2080"
     depends_on:
       mysqldb:
-        condition: service_healthy   # waits until MySQL is ready
+        condition: service_healthy
     restart: on-failure
     networks:
       - springboot-mysql-net

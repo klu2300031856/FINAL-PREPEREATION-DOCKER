@@ -29,7 +29,7 @@ jobs:
           context: ./SPORTS-SPRINGBOOT
           file: ./SPORTS-SPRINGBOOT/backend.Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/divyeshyamp/docker-backend-final-practice:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/docker-backend-final-practice:latest
 
       - name: Build and push frontend image
         uses: docker/build-push-action@v5
@@ -37,4 +37,4 @@ jobs:
           context: ./SPORTS-REACT
           file: ./SPORTS-REACT/frontend.Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/divyeshyamp/docker-frontend-final-practice:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/docker-frontend-final-practice:latest

@@ -3,7 +3,7 @@ services:
     image: mysql:8
     container_name: mysql-db
     environment:
-      MYSQL_ROOT_PASSWORD: root 
+      MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: sportdb
     ports:
       - "3307:3306"
@@ -11,6 +11,11 @@ services:
       - mysql_data:/var/lib/mysql
     networks:
       - springboot-mysql-net
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -uroot -proot"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
   backend:
     image: divyeshyamp/docker-backend-final-practice:latest
@@ -18,7 +23,8 @@ services:
     ports:
       - "2080:2080"
     depends_on:
-      - mysqldb
+      mysqldb:
+        condition: service_healthy   # waits until MySQL is ready
     restart: on-failure
     networks:
       - springboot-mysql-net
